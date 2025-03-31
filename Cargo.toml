@@ -50,3 +50,4 @@ axum-extra = { version = "0.10.1", features = ["query"] }
 metrics = "0.24.1"
 haste = { git = "https://github.com/johnpyp/haste.git", rev = "d7fae1be70afbad95bb5c6a62100d9fbe4610723", features = ["deadlock", "broadcast"] }
 async-stream = "0.3.6"
+bytes = { version = "1.10.1", features = ["serde"] }

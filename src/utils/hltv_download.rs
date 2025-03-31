@@ -1,10 +1,11 @@
+use bytes::Bytes;
 use haste::broadcast::BroadcastFile;
 use haste::demostream::DemoStream;
 use reqwest::StatusCode;
 use serde::{Deserialize, Serialize};
-use std::fmt::{Debug, Formatter};
+use std::fmt::{Debug, Display, Formatter};
+use std::io::Cursor;
 use std::time::{Duration, Instant};
-use std::{io::Cursor, sync::Arc};
 use tokio::sync::mpsc::{Receiver, Sender, channel};
 use tokio::time::sleep;
 use tracing::{error, trace};
@@ -16,7 +17,7 @@ const HLTV_PREFIX_URL: &str = "https://dist1-ord1.steamcontent.com/tv";
 pub struct HltvFragment {
     pub match_id: u64,
     pub fragment_n: u64,
-    pub fragment_contents: Arc<[u8]>,
+    pub fragment_contents: Bytes,
     pub fragment_type: FragmentType,
     pub is_confirmed_last_fragment: bool,
 }
@@ -41,6 +42,24 @@ pub enum HltvDownloadError {
     UnexpectedStatusCode(StatusCode),
     ReceiverDropped,
 }
+
+impl Display for HltvDownloadError {
+    fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
+        match self {
+            HltvDownloadError::NetworkError(e) => write!(f, "Network error: {}", e),
+            HltvDownloadError::SyncNotAvailable(Some(e)) => write!(f, "Sync not available: {}", e),
+            HltvDownloadError::SyncNotAvailable(None) => write!(f, "Sync not available"),
+            HltvDownloadError::FragmentNotFound => write!(f, "Fragment not found"),
+            HltvDownloadError::TemporaryError => write!(f, "Temporary error"),
+            HltvDownloadError::UnexpectedStatusCode(code) => {
+                write!(f, "Unexpected status code: {}", code)
+            }
+            HltvDownloadError::ReceiverDropped => write!(f, "Receiver dropped"),
+        }
+    }
+}
+
+impl std::error::Error for HltvDownloadError {}
 
 #[derive(Deserialize, Serialize)]
 struct HltvSyncResponse {
@@ -227,14 +246,13 @@ async fn fragment_fetching_loop(
                 .await
                 {
                     Ok(fragment_contents) => {
-                        let contents: Arc<[u8]> = fragment_contents.into();
                         let is_confirmed_last_fragment =
-                            check_fragment_has_end_command(contents.clone());
+                            check_fragment_has_end_command(&fragment_contents);
 
                         let hltv_fragment = HltvFragment {
                             match_id,
                             fragment_n,
-                            fragment_contents: contents,
+                            fragment_contents,
                             fragment_type,
                             is_confirmed_last_fragment,
                         };
@@ -341,7 +359,7 @@ pub async fn download_match_fragment(
     match_id: u64,
     fragment_n: u64,
     fragment_type: FragmentType,
-) -> Result<Vec<u8>, HltvDownloadError> {
+) -> Result<Bytes, HltvDownloadError> {
     let fragment_url = format!(
         "{}/{}/{}/{}",
         prefix_url,
@@ -358,11 +376,7 @@ pub async fn download_match_fragment(
         .map_err(HltvDownloadError::NetworkError)?;
 
     if resp.status().is_success() {
-        let bytes = resp
-            .bytes()
-            .await
-            .map_err(HltvDownloadError::NetworkError)?;
-        Ok(bytes.to_vec())
+        resp.bytes().await.map_err(HltvDownloadError::NetworkError)
     } else if resp.status() == StatusCode::NOT_FOUND {
         Err(HltvDownloadError::FragmentNotFound)
     } else if resp.status() == StatusCode::METHOD_NOT_ALLOWED {
@@ -372,7 +386,7 @@ pub async fn download_match_fragment(
     }
 }
 
-fn check_fragment_has_end_command(fragment_contents: Arc<[u8]>) -> bool {
+fn check_fragment_has_end_command(fragment_contents: &Bytes) -> bool {
     let cursor = Cursor::new(&fragment_contents[..]);
 
     let mut demo_file = BroadcastFile::start_reading(cursor);

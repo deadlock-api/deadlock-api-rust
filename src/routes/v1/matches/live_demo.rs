@@ -1,22 +1,20 @@
 use crate::routes::v1::matches::types::MatchIdQuery;
-use crate::utils::hltv_download::download_match_mpsc;
+use crate::utils::hltv_download::{HltvDownloadError, download_match_mpsc};
+use async_stream::try_stream;
+use axum::body::{Body, Bytes};
 use axum::extract::Path;
-use axum::response::sse::{Event, KeepAlive};
-use axum::response::{IntoResponse, Sse};
+use axum::response::IntoResponse;
 use futures::Stream;
-use itertools::Itertools;
 use tracing::info;
 
-pub async fn stream_hltv_match(match_id: u64) -> impl Stream<Item = serde_json::Result<Event>> {
-    #[allow(clippy::unwrap_used)]
-    let mut recv = download_match_mpsc(match_id).await.unwrap();
-
-    async_stream::stream! {
+pub async fn stream_hltv_match(
+    match_id: u64,
+) -> impl Stream<Item = Result<Bytes, HltvDownloadError>> {
+    try_stream! {
+        let mut recv = download_match_mpsc(match_id).await?;
         while let Some(fragment) = recv.recv().await {
             info!("Sending Fragment: {:?}", fragment);
-            let event = Event::default()
-                .data(fragment.fragment_contents.iter().map(|e| e.to_string()).join(","));
-            yield Ok(event);
+            yield fragment.fragment_contents;
         }
     }
 }
@@ -26,7 +24,7 @@ pub async fn stream_hltv_match(match_id: u64) -> impl Stream<Item = serde_json::
     path = "/{match_id}/live/demo",
     params(MatchIdQuery),
     responses(
-        (status = OK),
+        (status = OK, body = [u8], description = "Live demo stream."),
         (status = BAD_REQUEST, description = "Provided parameters are invalid."),
         (status = INTERNAL_SERVER_ERROR)
     ),
@@ -36,5 +34,5 @@ pub async fn stream_hltv_match(match_id: u64) -> impl Stream<Item = serde_json::
 )]
 pub async fn live_demo(Path(MatchIdQuery { match_id }): Path<MatchIdQuery>) -> impl IntoResponse {
     let stream = stream_hltv_match(match_id).await;
-    Sse::new(stream).keep_alive(KeepAlive::default())
+    Body::from_stream(stream)
 }
