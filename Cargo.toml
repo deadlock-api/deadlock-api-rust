@@ -16,7 +16,7 @@ clickhouse = "0.13.2"
 sqlx = { version = "0.8.3", features = ["macros", "postgres", "runtime-tokio", "uuid"] }
 uuid = { version = "1.16.0", features = ["v4"] }
 cached = { version = "0.55.1", features = ["async", "serde", "tokio"] }
-axum = { version = "0.8.1", features = ["http2"] }
+axum = { version = "0.8.3", features = ["http2"] }
 utoipa-axum = "0.2.0"
 utoipa = { version = "5.3.1", features = ["axum_extras", "chrono"] }
 serde = { version = "1.0.219", features = ["derive"] }
@@ -36,7 +36,7 @@ axum-prometheus = "0.8.0"
 itertools = "0.14.0"
 futures = "0.3.31"
 snap = "1.1.1"
-valveprotos = { git = "https://github.com/johnpyp/valveprotos-rs", version = "0.0.0", features = ["deadlock", "serde"] }
+valveprotos = { git = "https://github.com/johnpyp/valveprotos-rs.git", rev = "ed35f6e38bf0e8ec59a7f02d30edddc6f7a5127c", features = ["deadlock", "serde"] }
 prost = "0.13.5"
 base64 = "0.22.1"
 tryhard = "0.5.1"
@@ -46,5 +46,7 @@ strum_macros = "0.27.1"
 hmac = "0.12.1"
 sha2 = "0.10.8"
 hex = "0.4.3"
-axum-extra = { version = "0.10.0", features = ["query"] }
+axum-extra = { version = "0.10.1", features = ["query"] }
 metrics = "0.24.1"
+haste = { git = "https://github.com/johnpyp/haste.git", rev = "d7fae1be70afbad95bb5c6a62100d9fbe4610723", features = ["deadlock", "broadcast"] }
+async-stream = "0.3.6"

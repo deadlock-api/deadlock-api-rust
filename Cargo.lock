@@ -154,6 +154,28 @@ dependencies = [
 ]
 
 [[package]]
+name = "async-stream"
+version = "0.3.6"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "0b5a71a6f37880a80d1d7f19efd781e4b5de42c88f0722cc13bcb6cc2cfe8476"
+dependencies = [
+ "async-stream-impl",
+ "futures-core",
+ "pin-project-lite",
+]
+
+[[package]]
+name = "async-stream-impl"
+version = "0.3.6"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "c7c24de15d275a1ecfd47a380fb4d5ec9bfe0933f309ed5e705b775596a3574d"
+dependencies = [
+ "proc-macro2",
+ "quote",
+ "syn",
+]
+
+[[package]]
 name = "async-trait"
 version = "0.1.88"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -187,9 +209,9 @@ checksum = "ace50bade8e6234aa140d9a2f552bbee1db4d353f69b8217bc503490fc1a9f26"
 
 [[package]]
 name = "axum"
-version = "0.8.1"
+version = "0.8.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "6d6fd624c75e18b3b4c6b9caf42b1afe24437daaee904069137d8bab077be8b8"
+checksum = "de45108900e1f9b9242f7f2e254aa3e2c029c921c258fe9e6b4217eeebd54288"
 dependencies = [
  "axum-core",
  "bytes",
@@ -221,12 +243,12 @@ dependencies = [
 
 [[package]]
 name = "axum-core"
-version = "0.5.0"
+version = "0.5.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "df1362f362fd16024ae199c1970ce98f9661bf5ef94b9808fee734bc3698b733"
+checksum = "68464cd0412f486726fb3373129ef5d2993f90c34bc2bc1c1e9943b2f4fc7ca6"
 dependencies = [
  "bytes",
- "futures-util",
+ "futures-core",
  "http",
  "http-body",
  "http-body-util",
@@ -241,9 +263,9 @@ dependencies = [
 
 [[package]]
 name = "axum-extra"
-version = "0.10.0"
+version = "0.10.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "460fc6f625a1f7705c6cf62d0d070794e94668988b1c38111baeec177c715f7b"
+checksum = "45bf463831f5131b7d3c756525b305d40f1185b688565648a92e1392ca35713d"
 dependencies = [
  "axum",
  "axum-core",
@@ -255,6 +277,7 @@ dependencies = [
  "http-body-util",
  "mime",
  "pin-project-lite",
+ "rustversion",
  "serde",
  "serde_html_form",
  "serde_path_to_error",
@@ -683,9 +706,9 @@ dependencies = [
 
 [[package]]
 name = "darling"
-version = "0.20.10"
+version = "0.20.11"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "6f63b86c8a8826a49b8c21f08a2d07338eec8d900540f8630dc76284be802989"
+checksum = "fc7f46116c46ff9ab3eb1597a45688b6715c6e628b5c133e288e709a29bcb4ee"
 dependencies = [
  "darling_core",
  "darling_macro",
@@ -693,9 +716,9 @@ dependencies = [
 
 [[package]]
 name = "darling_core"
-version = "0.20.10"
+version = "0.20.11"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "95133861a8032aaea082871032f5815eb9e98cef03fa916ab4500513994df9e5"
+checksum = "0d00b9596d185e565c2207a0b01f8bd1a135483d02d9b7b0a54b11da8d53412e"
 dependencies = [
  "fnv",
  "ident_case",
@@ -707,9 +730,9 @@ dependencies = [
 
 [[package]]
 name = "darling_macro"
-version = "0.20.10"
+version = "0.20.11"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "d336a2a514f6ccccaa3e09b02d41d35330c07ddf03a62165fcec10bb561c7806"
+checksum = "fc34b93ccb385b40dc71c6fceac4b2ad23662c7eeb248cf10d529b7e055b6ead"
 dependencies = [
  "darling_core",
  "quote",
@@ -721,6 +744,7 @@ name = "deadlock-api-rust"
 version = "0.1.0"
 dependencies = [
  "async-compression",
+ "async-stream",
  "axum",
  "axum-extra",
  "axum-prometheus",
@@ -731,6 +755,7 @@ dependencies = [
  "clickhouse",
  "derive_more",
  "futures",
+ "haste",
  "hex",
  "hmac",
  "itertools",
@@ -823,6 +848,44 @@ name = "dotenvy"
 version = "0.15.7"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "1aaf95b3e5c8f23aa320147307562d361db0ae0d51242340f558153b4eb2439b"
+
+[[package]]
+name = "dungers"
+version = "0.0.0"
+source = "git+https://github.com/blukai/dungers.git?rev=5419784ef771089369bdce5463a6cf6da35d3a79#5419784ef771089369bdce5463a6cf6da35d3a79"
+dependencies = [
+ "dungers_bitbuf",
+ "dungers_charsor",
+ "dungers_varint",
+]
+
+[[package]]
+name = "dungers_bitbuf"
+version = "0.0.0"
+source = "git+https://github.com/blukai/dungers.git?rev=5419784ef771089369bdce5463a6cf6da35d3a79#5419784ef771089369bdce5463a6cf6da35d3a79"
+dependencies = [
+ "dungers_varint",
+ "thiserror 1.0.69",
+]
+
+[[package]]
+name = "dungers_charsor"
+version = "0.0.0"
+source = "git+https://github.com/blukai/dungers.git?rev=5419784ef771089369bdce5463a6cf6da35d3a79#5419784ef771089369bdce5463a6cf6da35d3a79"
+
+[[package]]
+name = "dungers_varint"
+version = "0.0.0"
+source = "git+https://github.com/blukai/dungers.git?rev=5419784ef771089369bdce5463a6cf6da35d3a79#5419784ef771089369bdce5463a6cf6da35d3a79"
+dependencies = [
+ "thiserror 1.0.69",
+]
+
+[[package]]
+name = "dyn-clone"
+version = "1.0.19"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "1c7a8fb8a9fbf66c1f703fe16184d10ca0ee9d23be5b4436400408ba54a95005"
 
 [[package]]
 name = "either"
@@ -1149,6 +1212,62 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "7382cf6263419f2d8df38c55d7da83da5c18aef87fc7a7fc1fb1e344edfe14c1"
 dependencies = [
  "hashbrown 0.15.2",
+]
+
+[[package]]
+name = "haste"
+version = "0.0.0"
+source = "git+https://github.com/johnpyp/haste.git?rev=d7fae1be70afbad95bb5c6a62100d9fbe4610723#d7fae1be70afbad95bb5c6a62100d9fbe4610723"
+dependencies = [
+ "haste_broadcast",
+ "haste_core",
+]
+
+[[package]]
+name = "haste_broadcast"
+version = "0.0.0"
+source = "git+https://github.com/johnpyp/haste.git?rev=d7fae1be70afbad95bb5c6a62100d9fbe4610723#d7fae1be70afbad95bb5c6a62100d9fbe4610723"
+dependencies = [
+ "anyhow",
+ "bytes",
+ "haste_core",
+ "http",
+ "log",
+ "pollster",
+ "prost",
+ "reqwest",
+ "serde",
+ "serde_json",
+ "thiserror 1.0.69",
+ "tokio",
+ "valveprotos",
+]
+
+[[package]]
+name = "haste_core"
+version = "0.0.0"
+source = "git+https://github.com/johnpyp/haste.git?rev=d7fae1be70afbad95bb5c6a62100d9fbe4610723#d7fae1be70afbad95bb5c6a62100d9fbe4610723"
+dependencies = [
+ "anyhow",
+ "dungers",
+ "dyn-clone",
+ "hashbrown 0.14.5",
+ "haste_vartype",
+ "lazy_static",
+ "nohash",
+ "prost",
+ "snap",
+ "thiserror 1.0.69",
+ "valveprotos",
+]
+
+[[package]]
+name = "haste_vartype"
+version = "0.0.0"
+source = "git+https://github.com/johnpyp/haste.git?rev=d7fae1be70afbad95bb5c6a62100d9fbe4610723#d7fae1be70afbad95bb5c6a62100d9fbe4610723"
+dependencies = [
+ "dungers",
+ "thiserror 1.0.69",
 ]
 
 [[package]]
@@ -1737,6 +1856,12 @@ dependencies = [
 ]
 
 [[package]]
+name = "nohash"
+version = "0.2.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "a0f889fb66f7acdf83442c35775764b51fed3c606ab9cee51500dbde2cf528ca"
+
+[[package]]
 name = "nu-ansi-term"
 version = "0.46.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1848,9 +1973,9 @@ dependencies = [
 
 [[package]]
 name = "once_cell"
-version = "1.21.2"
+version = "1.21.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "c2806eaa3524762875e21c3dcd057bc4b7bfa01ce4da8d46be1cd43649e1cc6b"
+checksum = "42f5e15c9953c5e4ccceeb2e7382a716482c34515315f7b03532b8b4e8393d2d"
 
 [[package]]
 name = "openssl"
@@ -2020,6 +2145,12 @@ name = "pkg-config"
 version = "0.3.32"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "7edddbd0b52d732b21ad9a5fab5c704c14cd949e5e9a1ec5929a24fded1b904c"
+
+[[package]]
+name = "pollster"
+version = "0.3.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "22686f4785f02a4fcc856d3b3bb19bf6c8160d103f7a99cc258bddd0251dc7f2"
 
 [[package]]
 name = "portable-atomic"
@@ -2412,6 +2543,7 @@ version = "0.12.15"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "d19c46a6fdd48bc4dab94b6103fccc55d34c67cc0ad04653aad4ea2a07cd7bbb"
 dependencies = [
+ "async-compression",
  "base64",
  "bytes",
  "encoding_rs",
@@ -2829,9 +2961,9 @@ checksum = "1b6b67fb9a61334225b5b790716f609cd58395f895b3fe8b328786812a40bc3b"
 
 [[package]]
 name = "socket2"
-version = "0.5.8"
+version = "0.5.9"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "c970269d99b64e60ec3bd6ad27270092a5394c4e309314b18ae3fe575695fbe8"
+checksum = "4f5fd57c80058a56cf5c777ab8a126398ece8e442983605d280a44ce79d0edef"
 dependencies = [
  "libc",
  "windows-sys 0.52.0",
@@ -3615,7 +3747,7 @@ checksum = "ba73ea9cf16a25df0c8caa16c51acb937d5712a8429db78a3ee29d5dcacd3a65"
 [[package]]
 name = "valveprotos"
 version = "0.0.0"
-source = "git+https://github.com/johnpyp/valveprotos-rs#ed35f6e38bf0e8ec59a7f02d30edddc6f7a5127c"
+source = "git+https://github.com/johnpyp/valveprotos-rs.git?rev=ed35f6e38bf0e8ec59a7f02d30edddc6f7a5127c#ed35f6e38bf0e8ec59a7f02d30edddc6f7a5127c"
 dependencies = [
  "heck",
  "prost",
@@ -3815,7 +3947,7 @@ version = "0.1.9"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "cf221c93e13a30d793f7645a0e7762c55d169dbb0a49671918a2319d289b10bb"
 dependencies = [
- "windows-sys 0.59.0",
+ "windows-sys 0.48.0",
 ]
 
 [[package]]

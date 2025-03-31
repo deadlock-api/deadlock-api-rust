@@ -3,6 +3,7 @@ mod badge_distribution;
 mod bulk_metadata;
 mod ingest_event;
 mod ingest_salts;
+mod live_demo;
 mod metadata;
 mod recently_fetched;
 mod salts;
@@ -21,6 +22,7 @@ pub fn router() -> OpenApiRouter<AppState> {
     OpenApiRouter::with_openapi(ApiDoc::openapi())
         .routes(routes!(active::active_matches))
         .routes(routes!(active::active_matches_raw))
+        .routes(routes!(live_demo::live_demo))
         .routes(routes!(metadata::metadata))
         .routes(routes!(metadata::metadata_raw))
         .routes(routes!(bulk_metadata::bulk_metadata))
