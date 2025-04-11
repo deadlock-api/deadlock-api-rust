@@ -36,7 +36,7 @@ axum-prometheus = "0.8.0"
 itertools = "0.14.0"
 futures = "0.3.31"
 snap = "1.1.1"
-valveprotos = { git = "https://github.com/johnpyp/valveprotos-rs", version = "0.0.0", features = ["deadlock", "serde"] }
+valveprotos = { git = "https://github.com/johnpyp/valveprotos-rs.git", rev = "ed35f6e38bf0e8ec59a7f02d30edddc6f7a5127c", features = ["deadlock", "serde"] }
 prost = "0.13.5"
 base64 = "0.22.1"
 tryhard = "0.5.1"
@@ -49,6 +49,8 @@ hex = "0.4.3"
 axum-extra = { version = "0.10.1", features = ["query"] }
 metrics = "0.24.1"
 querystring = "1.1.0"
+haste = { git = "https://github.com/johnpyp/haste.git", rev = "d7fae1be70afbad95bb5c6a62100d9fbe4610723", features = ["deadlock", "broadcast"] }
+async-stream = "0.3.6"
 thiserror = "2.0.12"
 
 [dev-dependencies]
