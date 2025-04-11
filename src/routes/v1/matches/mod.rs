@@ -4,6 +4,7 @@ pub mod bulk_metadata;
 pub mod custom;
 pub mod ingest_event;
 pub mod ingest_salts;
+pub mod live_demo;
 pub mod live_url;
 pub mod metadata;
 pub mod recently_fetched;
@@ -25,6 +26,7 @@ pub fn router() -> OpenApiRouter<AppState> {
     OpenApiRouter::with_openapi(ApiDoc::openapi())
         .routes(routes!(active::active_matches))
         .routes(routes!(active::active_matches_raw))
+        .routes(routes!(live_demo::live_demo))
         .routes(routes!(ingest_event::ingest_event))
         .routes(routes!(ingest_salts::ingest_salts))
         .routes(routes!(recently_fetched::recently_fetched))
