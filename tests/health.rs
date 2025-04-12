@@ -2,7 +2,7 @@ use deadlock_api_rust::run_api;
 use reqwest::StatusCode;
 
 #[tokio::test]
-async fn test_load_app_state() {
+async fn test_api_health() {
     // Start app
     let handle = tokio::spawn(run_api());
 
