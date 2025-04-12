@@ -14,7 +14,7 @@ async fn test_api_health() {
         .expect("Failed to get health");
 
     let status = health.status();
-    handle.abort_handle().abort();
+    handle.abort();
 
     match status {
         StatusCode::OK => println!("{:#?}", health.text().await),
