@@ -29,8 +29,11 @@ tasks:
 
   start-test-env:
     desc: "Starts the testing Docker environment."
+    env:
+      NO_BUILD: 0
     cmds:
-      - docker compose -f $TESTING_DOCKER_COMPOSE up -d --build --wait --remove-orphans
+      - "if [[ $NO_BUILD = 1 ]]; then docker compose -f $TESTING_DOCKER_COMPOSE up -d --wait --remove-orphans; fi"
+      - "if [[ $NO_BUILD = 0 ]]; then docker compose -f $TESTING_DOCKER_COMPOSE up -d --wait --remove-orphans --build; fi"
 
   import-test-data-postgres:
     desc: "Imports test data into PostgreSQL."

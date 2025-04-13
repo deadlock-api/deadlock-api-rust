@@ -1,5 +1,6 @@
 services:
   api:
+    image: deadlock-api-rust:testing
     build:
       context: .
       dockerfile: Dockerfile.testing
@@ -47,7 +48,7 @@ services:
       CLICKHOUSE_PASSWORD: ijojdmkasd
       CLICKHOUSE_DB: default
     healthcheck:
-      test: ["CMD-SHELL", "wget --no-verbose --tries=1 --spider http://default:ijojdmkasd@localhost:8123/?query=SELECT%201 || exit 1"]
+      test: [ "CMD-SHELL", "wget --no-verbose --tries=1 --spider http://default:ijojdmkasd@localhost:8123/?query=SELECT%201 || exit 1" ]
       interval: 10s
       timeout: 10s
       retries: 5
