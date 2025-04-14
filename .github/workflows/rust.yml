@@ -138,7 +138,6 @@ jobs:
           project: ${{ env.DEPOT_PROJECT_ID }}
           platforms: linux/arm64
           context: .
-          file: Dockerfile.testing
           tags: deadlock-api-rust:testing
           load: true
           push: false
