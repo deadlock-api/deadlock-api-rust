@@ -81,3 +81,12 @@ tasks:
     cmds:
       - cargo test
       - task: teardown-test-env
+
+  coverage:
+    desc: "Runs the cargo tests with code coverage after setting up the test environment."
+    dotenv: [ '{{.TESTING_ENV_FILE}}' ]
+    deps:
+      - task: setup-test-env
+    cmds:
+      - cargo llvm-cov --all-features --workspace --codecov --output-path codecov.json
+      - task: teardown-test-env

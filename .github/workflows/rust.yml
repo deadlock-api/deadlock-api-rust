@@ -119,6 +119,10 @@ jobs:
         with:
           shared-key: ${{ runner.os }}-rust-${{ env.RUST_TOOLCHAIN }}
 
+      - uses: taiki-e/cache-cargo-install-action@v2
+        with:
+          tool: cargo-llvm-cov
+
       - name: Setup go-task
         run: curl -sSf https://taskfile.dev/install.sh | sh -s -- -b $HOME/.local/bin
 
@@ -140,7 +144,14 @@ jobs:
           push: false
 
       - name: Run tests
-        run: NO_BUILD=1 task test
+        run: NO_BUILD=1 task coverage
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v5
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: codecov.json
+          fail_ci_if_error: true
 
   deploy:
     name: Deploy
