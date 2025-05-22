@@ -30,7 +30,7 @@ concurrency:
 jobs:
   test_deploy:
     name: Test and Deploy
-    runs-on: blacksmith-2vcpu-ubuntu-2404
+    runs-on: blacksmith-2vcpu-ubuntu-2404-arm
 
     steps:
       - name: Determine Docker Tag
