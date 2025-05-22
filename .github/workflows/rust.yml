@@ -30,7 +30,7 @@ concurrency:
 jobs:
   test_deploy:
     name: Test and Deploy
-    runs-on: ubuntu-24.04-arm
+    runs-on: blacksmith-2vcpu-ubuntu-2404
 
     steps:
       - name: Determine Docker Tag
@@ -71,7 +71,7 @@ jobs:
           components: rustfmt, clippy
 
       - name: Cache Rust dependencies
-        uses: Swatinem/rust-cache@v2
+        uses: useblacksmith/rust-cache@v3
         with:
           shared-key: "build-cache"
 
