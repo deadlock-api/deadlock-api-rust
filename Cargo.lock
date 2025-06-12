@@ -610,6 +610,7 @@ dependencies = [
  "async-compression",
  "async-stream",
  "axum",
+ "axum-core",
  "axum-extra",
  "axum-prometheus",
  "base64",
@@ -652,7 +653,7 @@ dependencies = [
  "utoipa-axum",
  "utoipa-scalar",
  "uuid",
- "valveprotos",
+ "valveprotos 0.0.0 (git+https://github.com/deadlock-api/valveprotos-rs.git?rev=f0077df62a6b261f9e4d9d2e368eeabf48e31db1)",
 ]
 
 [[package]]
@@ -1080,7 +1081,6 @@ dependencies = [
 [[package]]
 name = "haste"
 version = "0.0.0"
-source = "git+https://github.com/deadlock-api/haste.git?rev=3d10952c5167a27cb607584fc4de742aaef63cc2#3d10952c5167a27cb607584fc4de742aaef63cc2"
 dependencies = [
  "haste_broadcast",
  "haste_core",
@@ -1089,7 +1089,6 @@ dependencies = [
 [[package]]
 name = "haste_broadcast"
 version = "0.0.0"
-source = "git+https://github.com/deadlock-api/haste.git?rev=3d10952c5167a27cb607584fc4de742aaef63cc2#3d10952c5167a27cb607584fc4de742aaef63cc2"
 dependencies = [
  "anyhow",
  "bytes",
@@ -1102,13 +1101,12 @@ dependencies = [
  "serde_json",
  "thiserror 2.0.12",
  "tokio",
- "valveprotos",
+ "valveprotos 0.0.0 (git+https://github.com/deadlock-api/valveprotos-rs.git?rev=3911167527c1dcb1bdcb872f7b1a53fb4620c5bd)",
 ]
 
 [[package]]
 name = "haste_core"
 version = "0.0.0"
-source = "git+https://github.com/deadlock-api/haste.git?rev=3d10952c5167a27cb607584fc4de742aaef63cc2#3d10952c5167a27cb607584fc4de742aaef63cc2"
 dependencies = [
  "anyhow",
  "dungers",
@@ -1120,13 +1118,12 @@ dependencies = [
  "prost 0.14.0",
  "snap",
  "thiserror 2.0.12",
- "valveprotos",
+ "valveprotos 0.0.0 (git+https://github.com/deadlock-api/valveprotos-rs.git?rev=3911167527c1dcb1bdcb872f7b1a53fb4620c5bd)",
 ]
 
 [[package]]
 name = "haste_vartype"
 version = "0.0.0"
-source = "git+https://github.com/deadlock-api/haste.git?rev=3d10952c5167a27cb607584fc4de742aaef63cc2#3d10952c5167a27cb607584fc4de742aaef63cc2"
 dependencies = [
  "dungers",
  "thiserror 2.0.12",
@@ -3693,6 +3690,21 @@ dependencies = [
  "prost 0.14.0",
  "prost-build 0.14.0",
  "prost-types 0.14.0",
+ "prost-wkt",
+ "prost-wkt-build",
+ "prost-wkt-types",
+ "serde",
+]
+
+[[package]]
+name = "valveprotos"
+version = "0.0.0"
+source = "git+https://github.com/deadlock-api/valveprotos-rs.git?rev=f0077df62a6b261f9e4d9d2e368eeabf48e31db1#f0077df62a6b261f9e4d9d2e368eeabf48e31db1"
+dependencies = [
+ "heck",
+ "prost 0.13.5",
+ "prost-build 0.13.5",
+ "prost-types 0.13.5",
  "prost-wkt",
  "prost-wkt-build",
  "prost-wkt-types",

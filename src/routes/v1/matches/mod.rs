@@ -30,6 +30,7 @@ pub(super) fn router() -> OpenApiRouter<AppState> {
         .routes(routes!(active::active_matches))
         .routes(routes!(active::active_matches_raw))
         .routes(routes!(live_demo::live_demo))
+        .routes(routes!(live_demo::live_demo_events))
         .routes(routes!(ingest_event::ingest_event))
         .routes(routes!(ingest_salts::ingest_salts))
         .routes(routes!(recently_fetched::recently_fetched))
