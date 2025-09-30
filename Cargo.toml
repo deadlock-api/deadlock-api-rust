@@ -15,7 +15,7 @@ clickhouse = { version = "0.13.3", features = ["chrono"] }
 sqlx = { version = "0.8.6", features = ["chrono", "derive", "postgres", "runtime-tokio", "uuid"] }
 uuid = { version = "1.18.1", features = ["serde", "v4"] }
 cached = { version = "0.56.0", features = ["async", "serde"] }
-axum = "0.8.5"
+axum = "0.8.6"
 utoipa-axum = "0.2.0"
 utoipa = { version = "5.4.0", features = ["axum_extras", "chrono", "uuid"] }
 serde = { version = "1.0.228", features = ["derive"] }
