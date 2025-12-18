@@ -26,7 +26,7 @@ tower = { version = "0.5.2", features = ["limit", "tokio"] }
 tower-layer = "0.3.3"
 tower-service = "0.3.3"
 tower-http = { version = "0.6.7", features = ["compression-full", "cors", "decompression-full", "normalize-path", "trace", "limit"] }
-tracing = "0.1.43"
+tracing = "0.1.44"
 utoipa-scalar = { version = "0.3.0", features = ["axum"] }
 axum-prometheus = "0.9.0"
 itertools = "0.14.0"
