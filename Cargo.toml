@@ -58,4 +58,4 @@ jsonwebtoken = { version = "10", features = ["rust_crypto"] }
 
 [dev-dependencies]
 rstest = "0.26.1"
-sqlparser = "0.60.0"
+sqlparser = "0.61.0"
