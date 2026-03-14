@@ -14,7 +14,6 @@ use valveprotos::deadlock::{
     CMsgClientToGcSpectateUserResponse, EgcCitadelClientMessages,
     c_msg_client_to_gc_spectate_user_response,
 };
-use valveprotos::gcsdk::EgcPlatform;
 
 use crate::context::AppState;
 use crate::error::{APIError, APIResult};
@@ -46,7 +45,7 @@ pub(super) async fn spectate_match(
     let msg = CMsgClientToGcSpectateLobby {
         match_id: Some(match_id),
         client_version: Some(client_version),
-        client_platform: Some(EgcPlatform::KEGcPlatformPc as i32),
+        client_platform: Some(1),
         ..Default::default()
     };
     debug!(?msg);
